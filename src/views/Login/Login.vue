@@ -53,8 +53,6 @@ import LoginHeader from "./LoginHeader.vue";
   components: { LoginHeader }
 })
 export default class Login extends Vue {
-  @Provide() isLoading: boolean = false;
-
   @Provide() ruleForm: {
     username: String;
     pwd: String;

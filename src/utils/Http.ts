@@ -2,6 +2,7 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 
 import { Message } from 'element-ui'
 
+import router from '@/router'
 
 // 响应拦截器 负责全局处理业务请求的网络或者业务错误
 
@@ -13,6 +14,9 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use((config: AxiosRequestConfig) => {
+    if (localStorage.tsToken) {
+        config.headers.Authorization = localStorage.tsToken;
+    }
     return config;
 }, (err: any) => {
     Promise.reject(err)
@@ -27,6 +31,8 @@ service.interceptors.response.use((response: AxiosResponse) => {
         switch (err.response.status) {
             case 401:
                 errMsg = '登录状态失效，请重新登录';
+                localStorage.removeItem('tsToken');
+                router.push('/login');
                 break;
             case 403:
                 errMsg = '拒绝访问';
