@@ -7,9 +7,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('../views/Layout/Index.vue'),
     meta: {
-      title: '首页'
+      title: '首页',
+      isLogin: true
     }
   },
   {
@@ -17,7 +18,8 @@ const routes: Array<RouteConfig> = [
     name: 'Login',
     component: () => import('@/views/Login/Login.vue'),
     meta: {
-      title: '登录'
+      title: '登录',
+      isLogin: false
     }
   },
   {
@@ -25,7 +27,8 @@ const routes: Array<RouteConfig> = [
     name: 'Password',
     component: () => import('@/views/Login/Password.vue'),
     meta: {
-      title: '找回密码'
+      title: '找回密码',
+      isLogin: false
     }
   },
   {
@@ -33,7 +36,8 @@ const routes: Array<RouteConfig> = [
     name: 'Register',
     component: () => import('../views/Register/Register.vue'),
     meta: {
-      title: '注册'
+      title: '注册',
+      isLogin: false
     }
   }
 ]
@@ -56,13 +60,13 @@ router.beforeEach((to: any, from: any, next: any) => {
     next()
   }
 
-  const isLogin = localStorage.tsToken ? true : false;
-  if (to.path == "/login" || to.path == "/password" || to.path == "/register") {
-    isLogin ? next('/') : next();
-    next();
-  } else {
-    isLogin ? next() : next("/login");
-  }
+  // const isLogin = localStorage.tsToken ? true : false;
+
+  // if (to.meta.isLogin) {
+  //   isLogin ? next() : next('/login')
+  // } else next('/');
+
+  next()
 })
 
 export default router

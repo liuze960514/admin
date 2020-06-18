@@ -45,6 +45,8 @@
 <script lang="ts">
 import { Component, Vue, Provide } from "vue-property-decorator";
 
+import { State, Getter, Mutation, Action } from "vuex-class";
+
 import { Message } from "element-ui";
 
 import LoginHeader from "./LoginHeader.vue";
@@ -53,6 +55,9 @@ import LoginHeader from "./LoginHeader.vue";
   components: { LoginHeader }
 })
 export default class Login extends Vue {
+  // 存储用户信息
+  @Action("setUser") setUser: any;
+
   @Provide() ruleForm: {
     username: String;
     pwd: String;
@@ -82,8 +87,10 @@ export default class Login extends Vue {
           .then((res: any) => {
             if (res.data.state === "suc") {
               Message.success(res.data.msg);
-              this.$router.push("/");
               localStorage.setItem("tsToken", res.data.token);
+              // 存储用户信息到vuex
+              this.setUser(res.data.token);
+              this.$router.push("/");
             } else {
               Message.error(res.data.msg);
               this.ruleForm = {
