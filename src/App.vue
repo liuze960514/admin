@@ -11,8 +11,6 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 import { State, Getter, Mutation, Action } from "vuex-class";
 
-import {} from "vuex";
-
 @Component
 export default class App extends Vue {
   @Action("setUser") setUser: any;
@@ -24,4 +22,9 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
 </style>

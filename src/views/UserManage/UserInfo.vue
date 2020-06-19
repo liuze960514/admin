@@ -7,10 +7,11 @@
 
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
-export default class Home extends Vue {}
+@Component({
+  components: {}
+})
+export default class UserInfo extends Vue {}
 </script>
 
 <style lang="scss">
-  
 </style>

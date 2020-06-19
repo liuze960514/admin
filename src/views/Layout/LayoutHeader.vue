@@ -4,24 +4,21 @@
       <!-- 左侧 -->
       <el-col :xs="10" :sm="12" :md="14" :lg="16" :xl="18">
         <div class="system-info">
-          <img src="@/assets/logo.png" class="logo" alt="logo" />
+          <img src="https://vuejs.org/images/logo.png" class="logo" alt="logo" />
           <span class="title">在线管理系统</span>
         </div>
       </el-col>
 
       <!-- 右侧 -->
       <el-col :xs="14" :sm="12" :md="10" :lg="8" :xl="6">
-        <el-dropdown class="system-user">
+        <el-dropdown class="system-user" @command="userCommand">
           <span class="userinfo-inner">
             <img :src="require('@/assets/' + getUser.key + '.jpg')" alt="userinfo" />
             <span>{{ getUser.username }}</span>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="usercenter">个人中心</el-dropdown-item>
-            <el-dropdown-item command="logout" divided>
-              注销登录
-              <!-- <el-button type="text" @click.stop="logout">注销登录</el-button> -->
-            </el-dropdown-item>
+            <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -43,11 +40,17 @@ export default class LauoutHeader extends Vue {
   @Getter("user") getUser: any;
 
   created() {
-    console.log(this.getUser);
+    // console.log(this.getUser);
   }
 
-  logout() {
-    alert(111);
+  userCommand(command: String): void {
+    // alert(command);
+    if (command === "logout") {
+      localStorage.removeItem("tsToken");
+      this.$router.push("/login");
+    }
+
+    if (command === "usercenter") this.$router.push("/user");
   }
 }
 </script>

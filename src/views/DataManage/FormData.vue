@@ -8,9 +8,8 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class Home extends Vue {}
+export default class FormData extends Vue {}
 </script>
 
 <style lang="scss">
-  
 </style>

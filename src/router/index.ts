@@ -1,7 +1,71 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 
+import Index from '@/views/Layout/Index.vue';
+
 Vue.use(VueRouter)
+
+
+export const asyncRouterMap = [
+  {
+    path: '/',
+    name: 'dashboard',
+    component: Index,
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/Home.vue'),
+        meta: {
+          title: '首页',
+          icon: 'fa fa-home',
+          isLogin: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/dataManage',
+    name: 'dataManage',
+    hidden: true,
+    component: Index,
+    redirect: '/tableData',
+    children: [
+      {
+        path: '/tableData',
+        name: 'tableData',
+        component: () => import('../views/DataManage/TableData.vue'),
+        meta: {
+          title: '表格管理',
+          icon: 'fa fa-bar-table',
+          isLogin: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/chartsData',
+    name: 'chartsData',
+    meta: {
+      title: '图表管理',
+      icon: 'fa fa-bar-chart',
+      isLogin: true
+    },
+    component: () => import('@/views/DataManage/ChartsData.vue')
+  },
+  {
+    path: '/formData',
+    name: 'formData',
+    meta: {
+      title: '表单管理',
+      icon: 'fa fa-file-text-o',
+      isLogin: true,
+      roles: ['admin', 'editor']
+    },
+    component: () => import('@/views/DataManage/FormData.vue')
+  },
+]
 
 const routes: Array<RouteConfig> = [
   {
@@ -43,7 +107,7 @@ const routes: Array<RouteConfig> = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

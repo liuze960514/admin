@@ -3,6 +3,10 @@
     <!-- 头部 -->
     <LayoutHeader></LayoutHeader>
     <!-- 内容 -->
+    <Content>
+      <Sidebar slot="left"></Sidebar>
+      <router-view slot="content"></router-view>
+    </Content>
   </div>
 </template>
 
@@ -11,10 +15,14 @@
 
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-import LayoutHeader from "@/views/Layout/LayoutHeader.vue";
+import LayoutHeader from "./LayoutHeader.vue";
+
+import Content from "./Content.vue";
+
+import Sidebar from "./Sidebar.vue";
 
 @Component({
-  components: { LayoutHeader }
+  components: { LayoutHeader, Content, Sidebar }
 })
 export default class Index extends Vue {}
 </script>
